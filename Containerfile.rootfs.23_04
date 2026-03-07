@@ -1,35 +1,28 @@
-FROM ubuntu:jammy
+FROM ubuntu:lunar
 
-LABEL org.opencontainers.image.authors="Badr @pythops"
+LABEL org.opencontainers.image.authors="Badr @pythops, MilanTodorovic"
 
 ENV TZ=Etc/UTC \
     DEBIAN_FRONTEND=noninteractive
 
-# Add focal main repo
-RUN echo "deb http://ports.ubuntu.com/ubuntu-ports/ focal main" >> /etc/apt/sources.list  && \
-    apt update
-
-RUN rm /var/lib/dpkg/info/libc-bin.* && \ 
-    apt-get clean && \
-    apt-get update && \
-    apt-get install libc-bin
+# Overwrite existing sourcles file and update apt mirrors
+COPY apt-sources/ubuntu_23/sources.list /etc/apt/sources.list
+RUN apt update
 
 # Nvidia required packages
-RUN apt install -y \
+RUN apt update && apt install -y \
         libgles2 \
         libpangoft2-1.0-0 \
         libxkbcommon0 \
         libwayland-egl1 \
         libwayland-cursor0 \
         libunwind8 \
-        libasound2 \
+        libasound2t64 \
         libpixman-1-0 \
         libjpeg-turbo8 \
         libinput10 \
         libcairo2 \
-        device-tree-compiler \
-        iso-codes \
-        libncursesw5 \
+        libncursesw6 \
         libdrm-common \
         libdrm2 \
         libegl-mesa0 \
@@ -38,14 +31,20 @@ RUN apt install -y \
         libgtk-3-0 \
         libgstreamer1.0-0 \
         libgstreamer-plugins-bad1.0-0 \
-        i2c-tools \
-        bridge-utils \
         libffi7 \
         libvulkan1 \
-        libssl1.1 && \
-        apt install -y wget cpio busybox && \
-        wget http://launchpadlibrarian.net/354032550/libffi6_3.2.1-8_arm64.deb && \
-        dpkg -i libffi6_3.2.1-8_arm64.deb
+        libpcre3 \
+        libssl-dev \
+        device-tree-compiler \
+        bridge-utils \
+        i2c-tools \
+        iso-codes \
+        wget \
+        cpio \
+        busybox \
+        nvme-cli \
+        libseat1 \
+        efibootmgr
 
 # Additional tools
 RUN apt install -y \
@@ -81,13 +80,12 @@ RUN apt install -y \
         e2fsprogs \
         mtd-utils \
         python-is-python3 \
-        git
+        git \
+        gpgv1
 
 # Nvidia containers
-# Although I couldn't get Docker running, the forums mention that the 27.5.1 version
-#   is the one supposed to work on 22.04 as the newer had some bugs which weren't addressed
 RUN apt install -y \
-        docker.io=27.5.1-0ubuntu3~22.04.2 \
+        docker.io \
         nvidia-docker2 \
         nvidia-container-toolkit-base \
         nvidia-container-toolkit

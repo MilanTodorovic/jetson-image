@@ -2,6 +2,9 @@ FROM ubuntu:noble
 
 LABEL org.opencontainers.image.authors="Badr @pythops"
 
+ENV TZ=Etc/UTC \
+    DEBIAN_FRONTEND=noninteractive
+
 # Jammy sources
 RUN echo "" >> /etc/apt/sources.list.d/ubuntu.sources && \
     echo "Types: deb" >>/etc/apt/sources.list.d/ubuntu.sources && \
@@ -84,6 +87,15 @@ RUN apt install -y \
         git \
         gpgv1
 
+# Nvidia containers
+RUN apt install -y \
+        docker.io \
+        nvidia-docker2 \
+        nvidia-container-toolkit-base \
+        nvidia-container-toolkit
+
+# Configure Docker file with Nvidia's parameters
+RUN nvidia-ctk runtime configure --runtime=docker
 
 RUN wget -q https://github.com/pythops/tegratop/releases/latest/download/tegratop-linux-arm64 -O /usr/local/bin/tegratop && \
     chmod +x /usr/local/bin/tegratop

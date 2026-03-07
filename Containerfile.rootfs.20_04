@@ -2,6 +2,9 @@ FROM ubuntu:focal
 
 LABEL org.opencontainers.image.authors="Badr @pythops"
 
+ENV TZ=Etc/UTC \
+    DEBIAN_FRONTEND=noninteractive
+
 # Install systemd
 RUN apt update && apt install -y systemd
 
@@ -70,6 +73,15 @@ RUN apt install -y \
         e2fsprogs \
         mtd-utils
 
+# Nvidia containers
+RUN apt install -y \
+        docker.io \
+        nvidia-docker2 \
+        nvidia-container-toolkit-base \
+        nvidia-container-toolkit
+
+# Configure Docker file with Nvidia's parameters
+RUN nvidia-ctk runtime configure --runtime=docker
 
 RUN wget -q https://github.com/pythops/tegratop/releases/latest/download/tegratop-linux-arm64 -O /usr/local/bin/tegratop && \
     chmod +x /usr/local/bin/tegratop

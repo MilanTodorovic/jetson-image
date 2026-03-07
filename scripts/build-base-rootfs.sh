@@ -6,8 +6,8 @@ set -e
 
 echo "Building base rootfs"
 
-if [ "$1" != "24.04" ] && [ "$1" != "22.04" ] && [ "$1" != "20.04" ]; then
-  echo "Error: Unknow version of ubuntu. The supported versions are: 20.04, 22.04, 24.04"
+if [ "$1" != "24.04" ] && [ "$1" != "23.04" ] && [ "$1" != "22.04" ] && [ "$1" != "21.04" ] && [ "$1" != "20.04" ]; then
+  echo "Error: Unknow version of ubuntu. The supported versions are: 20.04, 21.04, 22.04, 23.04, 24.04"
   exit 1
 fi
 
@@ -22,6 +22,16 @@ case $1 in
     -t jetson-rootfs
   ;;
 
+"21.04")
+  podman build \
+    --squash-all \
+    --jobs=4 \
+    --arch=arm64 \
+    --network=host \
+    -f Containerfile.rootfs.21_04 \
+    -t jetson-rootfs
+  ;;
+
 "22.04")
   podman build \
     --squash-all \
@@ -29,6 +39,16 @@ case $1 in
     --arch=arm64 \
     --network=host \
     -f Containerfile.rootfs.22_04 \
+    -t jetson-rootfs
+  ;;
+
+"23.04")
+  podman build \
+    --squash-all \
+    --jobs=4 \
+    --arch=arm64 \
+    --network=host \
+    -f Containerfile.rootfs.23_04 \
     -t jetson-rootfs
   ;;
 
