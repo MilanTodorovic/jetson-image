@@ -7,7 +7,7 @@ ENV TZ=Etc/UTC \
 
 # Overwrite existing sourcles file and update apt mirrors
 COPY apt-sources/ubuntu_23/sources.list /etc/apt/
-COPY apt-sources/ubuntu_23/nvidia-docker.list /etc/apt/sources.list.d/
+COPY apt-sources/ubuntu_23/nvidia-container-toolkit.list /etc/apt/sources.list.d/
 RUN apt update
 
 # Nvidia required packages

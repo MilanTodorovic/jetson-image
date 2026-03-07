@@ -9,7 +9,7 @@ ENV TZ=Etc/UTC \
 RUN apt update && apt install -y systemd
 
 # Update apt mirrors
-COPY apt-sources/ubuntu_20/nvidia-docker.list /etc/apt/sources.list.d/
+COPY apt-sources/ubuntu_20/nvidia-container-toolkit.list /etc/apt/sources.list.d/
 RUN echo "deb http://ports.ubuntu.com/ubuntu-ports/ bionic main" >> /etc/apt/sources.list && \
     apt update
 

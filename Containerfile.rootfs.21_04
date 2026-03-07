@@ -10,7 +10,7 @@ RUN apt update && apt install -y systemd
 
 # Overwrite existing sourcles file and update apt mirrors
 COPY apt-sources/ubuntu_21/sources.list /etc/apt/
-COPY apt-sources/ubuntu_21/nvidia-docker.list /etc/apt/sources.list.d/
+COPY apt-sources/ubuntu_21/nvidia-container-toolkit.list /etc/apt/sources.list.d/
 RUN apt update
 
 # Nvidia required packages
