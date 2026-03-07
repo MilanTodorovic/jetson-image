@@ -7,9 +7,7 @@ ENV TZ=Etc/UTC \
 
 # Overwrite existing sourcles file and update apt mirrors
 COPY apt-sources/ubuntu_21/sources.list /etc/apt/
-
-# Install systemd
-RUN apt update && apt install -y systemd
+RUN apt update
 
 # Nvidia required packages
 RUN apt install -y \
@@ -39,12 +37,16 @@ RUN apt install -y \
         libgstreamer1.0-0 \
         libgstreamer-plugins-bad1.0-0 \
         i2c-tools \
-        bridge-utils
+        bridge-utils && \
+        wget http://launchpadlibrarian.net/354032550/libffi6_3.2.1-8_arm64.deb && \
+        dpkg -i libffi6_3.2.1-8_arm64.deb
 
 # Additional tools
 RUN apt install -y \
+        systemd \
         bash-completion \
         build-essential \
+        pkg-config \
         btrfs-progs \
         ca-certificates \
         cmake \
@@ -62,17 +64,20 @@ RUN apt install -y \
         netplan.io \
         pciutils \
         python3-dev \
+        python-is-python3 \
         ssh \
         sudo \
         udev \
         unzip \
         usbutils \
-        neovim \
+        nano \
         wpasupplicant \
         parted \
         gdisk \
+        fdisk \
         e2fsprogs \
-        mtd-utils
+        mtd-utils \
+        git
 
 # Add Nvidia specific repos
 RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
