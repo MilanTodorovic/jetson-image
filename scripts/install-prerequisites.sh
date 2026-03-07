@@ -8,7 +8,7 @@ echo ""
 for PACKAGE in "${PACKAGES[@]}"; do
     if ! dpkg -s $PACKAGE &> /dev/null
     then
-        echo "Package $PACKAGE missing from host system."
+        echo "  Package $PACKAGE missing from host system."
         echo "    Searching for package in apt..."
         if ! apt-cache --names-only search "^$PACKAGE$"
         then
@@ -19,7 +19,9 @@ for PACKAGE in "${PACKAGES[@]}"; do
             sudo snap install $PACKAGE
         fi
     else
-        echo "Package $PACKAGE installed."
+        echo "  Package $PACKAGE installed."
     fi
     echo ""
 done
+echo "All good. Proceding to build script."
+echo ""

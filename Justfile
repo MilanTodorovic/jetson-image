@@ -4,9 +4,9 @@ default:
     @just --list --unsorted
 
 install-prerequisites:
-    -@scripts/install-prerequsites.sh
+    -@scripts/install-prerequisites.sh
 
-build-jetson-rootfs *args="": install_packages
+build-jetson-rootfs *args="": install-prerequisites
     -@scripts/build-base-rootfs.sh {{ args }}
 
 build-jetson-image *args="":
