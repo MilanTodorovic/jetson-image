@@ -69,7 +69,9 @@ esac
 
 podman save --format docker-dir -o base jetson-rootfs
 
-mkdir rootfs
+# If for whatever reason the build fails the first time, a rootfs dir is created
+#   then the build fails at this step if we don't delete and remake it
+rm -rf rootfs && mkdir -p rootfs
 
 for layer in "$(jq -r '.layers[].digest' base/manifest.json | awk -F ':' '{print $2}')"; do
   tar xvf base/"$layer" --directory=rootfs

@@ -7,7 +7,6 @@ ENV TZ=Etc/UTC \
 
 # Overwrite existing sourcles file and update apt mirrors
 COPY apt-sources/ubuntu_23/sources.list /etc/apt/
-COPY apt-sources/ubuntu_23/nvidia-container-toolkit.list /etc/apt/sources.list.d/
 RUN apt update
 
 # Nvidia required packages
@@ -54,9 +53,11 @@ RUN apt install -y \
         build-essential \
         pkg-config \
         btrfs-progs \
+        ca-certificates \
         cmake \
         curl \
         dnsutils \
+        gnupg2 \
         htop \
         iotop \
         isc-dhcp-client \
@@ -84,11 +85,18 @@ RUN apt install -y \
         git \
         gpgv1
 
+# Add Nvidia specific repos
+RUN curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+RUN apt update
+
 # Nvidia containers
 RUN apt install -y \
         docker.io \
         libnvidia-container-tools \
-        libnvidia-container0:arm64 \
+        libnvidia-container1:arm64 \
         nvidia-container-toolkit-base \
         nvidia-container-toolkit \
         nvidia-docker2

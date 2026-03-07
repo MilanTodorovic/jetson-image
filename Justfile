@@ -3,7 +3,10 @@ set positional-arguments := true
 default:
     @just --list --unsorted
 
-build-jetson-rootfs *args="":
+install-prerequisites:
+    -@scripts/install-prerequsites.sh
+
+build-jetson-rootfs *args="": install_packages
     -@scripts/build-base-rootfs.sh {{ args }}
 
 build-jetson-image *args="":

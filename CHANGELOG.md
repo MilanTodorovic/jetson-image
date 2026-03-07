@@ -5,6 +5,7 @@
 - ubuntu: 21.04 and 23.04
 - apt-sources: 21.04 and 23.04
 - changes to all container.rootfs files
+- new script to check and install if prerequisites are missing
 - indentation for netcfg.yaml
 
 ### Added
@@ -12,11 +13,13 @@
 - ubuntu 21.04
 - ubuntu 23.04
 - apt-sources directory with soucers.list files for 21.04 and 23.04
+- install-prerequisites.sh
 
 ### Updates
 
 - added docker related packages to all container.rootfs files
 - added ENV TZ=Etc/UTC DEBIAN_FRONTEND=noninteractive to all container.rootfs files
+- build-base-rootfs.sh now deletes rootfs dir before trying to create a new one
 
 ## 2024-05-27
 
