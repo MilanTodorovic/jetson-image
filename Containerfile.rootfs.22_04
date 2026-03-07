@@ -6,6 +6,7 @@ ENV TZ=Etc/UTC \
     DEBIAN_FRONTEND=noninteractive
 
 # Add focal main repo
+COPY apt-sources/ubuntu_22/nvidia-docker.list /etc/apt/sources.list.d/
 RUN echo "deb http://ports.ubuntu.com/ubuntu-ports/ focal main" >> /etc/apt/sources.list  && \
     apt update
 

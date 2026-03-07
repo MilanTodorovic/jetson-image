@@ -6,6 +6,7 @@ ENV TZ=Etc/UTC \
     DEBIAN_FRONTEND=noninteractive
 
 # Jammy sources
+COPY apt-sources/ubuntu_24/nvidia-docker.list /etc/apt/sources.list.d/
 RUN echo "" >> /etc/apt/sources.list.d/ubuntu.sources && \
     echo "Types: deb" >>/etc/apt/sources.list.d/ubuntu.sources && \
     echo "URIs: http://ports.ubuntu.com/ubuntu-ports/" >> /etc/apt/sources.list.d/ubuntu.sources && \
