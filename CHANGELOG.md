@@ -1,3 +1,23 @@
+## 2026-03-07
+
+### Summary
+
+- ubuntu: 21.04 and 23.04
+- apt-sources: 21.04 and 23.04
+- changes to all container.rootfs files
+- indentation for netcfg.yaml
+
+### Added
+
+- ubuntu 21.04
+- ubuntu 23.04
+- apt-sources directory with soucers.list files for 21.04 and 23.04
+
+### Updates
+
+- added docker related packages to all container.rootfs files
+- added ENV TZ=Etc/UTC DEBIAN_FRONTEND=noninteractive to all container.rootfs files
+
 ## 2024-05-27
 
 ### Summary
