@@ -86,7 +86,7 @@ RUN apt update
 RUN apt install -y \
         docker.io \
         libnvidia-container-tools \
-        libnvidia-container0:arm64 \
+        libnvidia-container1:arm64 \
         nvidia-container-toolkit-base \
         nvidia-container-toolkit \
         nvidia-docker2
