@@ -88,9 +88,11 @@ RUN apt install -y \
 #   is the one supposed to work on 22.04 as the newer had some bugs which weren't addressed
 RUN apt install -y \
         docker.io=27.5.1-0ubuntu3~22.04.2 \
-        nvidia-docker2 \
+        libnvidia-container-tools \
+        libnvidia-container0:arm64 \
         nvidia-container-toolkit-base \
-        nvidia-container-toolkit
+        nvidia-container-toolkit \
+        nvidia-docker2
 
 # Configure Docker file with Nvidia's parameters
 RUN nvidia-ctk runtime configure --runtime=docker

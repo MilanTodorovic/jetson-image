@@ -90,9 +90,11 @@ RUN apt install -y \
 # Nvidia containers
 RUN apt install -y \
         docker.io \
-        nvidia-docker2 \
+        libnvidia-container-tools \
+        libnvidia-container0:arm64 \
         nvidia-container-toolkit-base \
-        nvidia-container-toolkit
+        nvidia-container-toolkit \
+        nvidia-docker2
 
 # Configure Docker file with Nvidia's parameters
 RUN nvidia-ctk runtime configure --runtime=docker
