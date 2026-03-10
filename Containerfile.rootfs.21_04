@@ -65,6 +65,7 @@ RUN apt install -y \
         pciutils \
         python3-dev \
         python-is-python3 \
+        samba \
         ssh \
         sudo \
         udev \
@@ -89,6 +90,7 @@ RUN apt update
 # Nvidia containers
 RUN apt install -y \
         docker.io \
+        sudo apt install docker-compose-v2 \
         libnvidia-container-tools \
         libnvidia-container1:arm64 \
         nvidia-container-toolkit-base \
